@@ -16,7 +16,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ViewDados"></activity>
         <activity android:name=".DadosMapa" />
-        <activity android:name=".SobreActivity" />
 
         <activity android:name=".mapBoxImplement" />
         <activity android:name=".MainActivity">

@@ -56,27 +56,22 @@ public class MainActivity extends AppCompatActivity {
         switch (menuItem.getItemId()){
             case R.id.mapas:
                 fragmentClass = MapasFragment.class;
-                //Intent it = new Intent(this, mapBoxImplement.class);
-                //startActivity(it);
                 break;
+
             case R.id.scontr:
 
                 break;
 
             case R.id.config:
-
+                fragmentClass = ConfigFragment.class;
                 break;
 
             case R.id.about:
-                fragmentClass = SobreActivity.class;
-                break;
-
-            case R.id.help:
-                fragmentClass = AjudaActivity.class;
+                fragmentClass = SobreFragment.class;
                 break;
 
             case R.id.logout:
-
+                fragmentClass = SairFragment.class;
                 break;
             default:
                 fragmentClass = MapasFragment.class;
