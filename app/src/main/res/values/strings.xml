@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">MoveOn</string>
     <string name="title_activity_help">HelpActivity</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="access_token">pk.eyJ1IjoiamVyZW1pYXNrYWxlYmUiLCJhIjoiY2p2NzI0bXBtMDFwNzQ0bXgyYmt2eTFmNCJ9.kUMdrgj0HguRCn1bn20wRw</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

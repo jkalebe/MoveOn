@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:mapbox="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mapBoxImplement">
+    xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+    tools:context=".MapasFragment">
 
     <com.mapbox.mapboxsdk.maps.MapView
         android:id="@+id/mapView"
@@ -25,21 +25,19 @@
 
     </com.mapbox.mapboxsdk.maps.MapView>
 
-
-
     <ImageView
         android:id="@+id/fab_location_search"
+        android:onClick="initSearchFab"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="32dp"
+        android:src="@drawable/ic_search_black_24dp"
         mapbox:layout_constraintBottom_toBottomOf="@+id/mapView"
         mapbox:layout_constraintEnd_toEndOf="parent"
-        mapbox:layout_constraintHorizontal_bias="0.918"
-        mapbox:layout_constraintStart_toStartOf="parent"
-        mapbox:srcCompat="@drawable/ic_search_black_24dp" />
-
+        mapbox:layout_constraintHorizontal_bias="0.976"
+        mapbox:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

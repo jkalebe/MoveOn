@@ -47,7 +47,7 @@ public class AjudaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ajuda);
 
         //hide the action bar
-        //getSupportActionBar().hide();
+        getSupportActionBar().hide();
 
         //iniciar visualização
         btnNext = findViewById(R.id.btn_next);
@@ -95,6 +95,7 @@ public class AjudaActivity extends AppCompatActivity {
 
                     position++;
                     screenPager.setCurrentItem(position);
+                    btnGetStarted.setVisibility(View.INVISIBLE);
                 }
 
                 if(position == mList.size() -1) {

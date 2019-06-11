@@ -12,4 +12,10 @@
     <color name="intro_title_color">#000000</color>
     <color name="intro_description_color">#656565</color>
 
+    <color name="colorPrimary01">#795548</color>
+    <color name="colorPrimaryDark01">#5D4037</color>
+    <color name="white">#ffffff</color>
+    <color name="colorAccent01">#FF4081</color>
+    <color name="darkGray">#6c6c6c</color>
+
 </resources>
