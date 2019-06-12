@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.scontr:
-
+                fragmentClass = SContrFragment.class;
                 break;
 
             case R.id.config:
