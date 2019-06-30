@@ -11,6 +11,7 @@
         android:src="@drawable/imagedetetive"
         android:layout_width="75dp"
         android:layout_height="75dp"
+        android:id="@+id/profileimage"
         />
     <TextView
         android:layout_width="wrap_content"
@@ -18,11 +19,13 @@
         android:text="Usuario teste"
         android:textStyle="bold"
         android:layout_marginTop="5dp"
+        android:id="@+id/profilename"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="usuarioteste@gmail.com"
+        android:id="@+id/profileemail"
         />
 
 </LinearLayout>

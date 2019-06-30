@@ -77,7 +77,7 @@ public class MapasFragment extends Fragment{
 
             mapboxMap.addOnMapLongClickListener(this::addSymbol);
 
-            mapboxMap.setStyle(getStyleBuilder(Style.MAPBOX_STREETS), style -> {
+            mapboxMap.setStyle(getStyleBuilder("mapbox://styles/jeremiaskalebe/cjx2f4wx702v91cqo728d5xo0"), style -> {
 
                 initSearchFab(rootView);
                 symbolManager = new SymbolManager(mapView, mapboxMap, style);

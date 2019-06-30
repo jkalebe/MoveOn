@@ -1,5 +1,7 @@
 package com.example.moveon;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -11,20 +13,38 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.mapbox.mapboxsdk.Mapbox;
+import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerlayout;
     private ActionBarDrawerToggle toggle;
-
+    public static final String GOOGLE_ACCOUNT = "google_account";
+    private TextView profileName, profileEmail;
+    private ImageView profileImage;
+    public GoogleSignInAccount googleSignInAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Mapbox.getInstance(this, getString(R.string.access_token));
+
+        googleSignInAccount = getIntent().getParcelableExtra(GOOGLE_ACCOUNT);
+
+        Mapbox.getInstance(this, "pk.eyJ1IjoiamVyZW1pYXNrYWxlYmUiLCJhIjoiY2p2NzI0bXBtMDFwNzQ0bXgyYmt2eTFmNCJ9.kUMdrgj0HguRCn1bn20wRw");
         setContentView(R.layout.activity_main);
+        NavigationView nvDrawer = (NavigationView) findViewById(R.id.nv);
+
+        View headerView = nvDrawer.getHeaderView(0);
+        profileName = headerView.findViewById(R.id.profilename);
+        profileEmail = headerView.findViewById(R.id.profileemail);
+        profileImage = headerView.findViewById(R.id.profileimage);
+        setDataOnView();
+
 
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction().replace(R.id.flcontent,
@@ -35,13 +55,13 @@ public class MainActivity extends AppCompatActivity {
         toggle = new ActionBarDrawerToggle(this, mDrawerlayout, R.string.open, R.string.close);
         mDrawerlayout.addDrawerListener(toggle);
 
-        NavigationView nvDrawer = (NavigationView) findViewById(R.id.nv);
+
         toggle.syncState();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setupDrawerContent(nvDrawer);
 
-    }
+        }
 
    @Override
     public boolean onOptionsItemSelected(MenuItem item){
@@ -71,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.logout:
-                fragmentClass = SairFragment.class;
+               fragmentClass = SairFragment.class;
                 break;
             default:
                 fragmentClass = MapasFragment.class;
@@ -103,5 +123,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    private void setDataOnView() {
+
+            Picasso.get().load(googleSignInAccount.getPhotoUrl()).centerInside().fit().into(profileImage);
+            profileName.setText(googleSignInAccount.getDisplayName());
+            profileEmail.setText(googleSignInAccount.getEmail());
+
+    }
+
 
 }

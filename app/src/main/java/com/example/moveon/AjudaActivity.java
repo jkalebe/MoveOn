@@ -13,6 +13,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+
+import java.security.Permission;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,8 +42,8 @@ public class AjudaActivity extends AppCompatActivity {
 
         if (restorePrefData()) {
 
-            Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(mainActivity);
+            Intent LoginActivity = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(LoginActivity);
             finish();
 
         }
@@ -57,8 +61,8 @@ public class AjudaActivity extends AppCompatActivity {
 
         // fill list screen
         List<ScreenItem> mList = new ArrayList<>();
-        mList.add(new ScreenItem("Como funciona?", "Não sei se você conhece, mas existe na literatura um famoso e inteligente detetive " +
-                "chamado Sherlock Holmes. Sherlock era apaixonado pela cidade onde vivia na Inglaterra: Londres. Tão apaixonado que sempre estava " +
+        mList.add(new ScreenItem("Como funciona?", "Existe na literatura um famoso e inteligente detetive " +
+                "chamado Sherlock Holmes. Holmes era apaixonado pela cidade onde vivia na Inglaterra: Londres. Tão apaixonado que sempre estava " +
                 "catalogando a sua cidade, sabendo até mesmo sobre suas particularidades estruturais, informações que ele ia enriquecendo ao longo de " +
                 "suas diversas aventuras investigativas. Ele também contava com um aliado para documentar de forma escrita suas façanhas, seu amigo, " +
                 "Dr. Watson.", R.drawable.imagedetetive));
@@ -68,10 +72,12 @@ public class AjudaActivity extends AppCompatActivity {
                 "informações recolhidas.", R.drawable.imagetela2));
 
         mList.add(new ScreenItem("", "Ao registrar um local você vai seguir alguns passos:\n" +
-                "Passo 1- Abrir o mapa.\n" +
-                "Passo 2- Digitar no campo de busca o endereço do local.\nPasso 3- Clicar no ponto desejado no mapa, adicionar as informações e deixar um comentário pessoal.\n" +
-                "Passo 4- Você vê aquela camerazinha ali? Se quiser acrescentar fotos do local você não só pode como deve. \n" +
-                "Passo 5- Avalie o local! Quando mais cadeirinhas selecionar mais acessível o local é.", R.drawable.ic_accessible_black_24dp));
+                "Abra o mapa.\n", R.drawable.ic_map_black_24dp));
+        mList.add(new ScreenItem("", "Digitar no campo de busca o endereço do local e Clicar no ponto desejado no mapa, adicionar as informações e deixar um comentário pessoal.\n", R.drawable.map_default_map_marker));
+
+        mList.add(new ScreenItem("", "Você vê aquela camerazinha ali? Se quiser acrescentar fotos do local você não só pode como deve. \n", R.drawable.ic_camera_black_24dp));
+
+        mList.add(new ScreenItem("", "Avalie o local! Quando mais cadeirinhas selecionar mais acessível o local é.", R.drawable.ic_star_black_24dp));
 
         mList.add(new ScreenItem("","Quer deixar o papel de Sherlock e Watson de lado por um momento para ir relaxar em algum lugar da cidade, mas gostaria de saber antes se tem acessibilidade lá? Elementar, meu caro amigo (a).  É só ir no campo de busca e pesquisar o nome do local para saber tudinho sobre ele.\n" +
                 "Muita gente vê, mas não observa. Seja diferente. Bem vindo!", R.drawable.logomoveon21));
@@ -137,8 +143,8 @@ public class AjudaActivity extends AppCompatActivity {
 
                  //open main activity
 
-                 Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
-                 startActivity(mainActivity);
+                     Intent LoginActivity = new Intent(getApplicationContext(), com.example.moveon.LoginActivity.class);
+                     startActivity(LoginActivity);
                  //also we need  to save  a boolean  value  to storage  ao next  time  when  the user  run the app
                  //we could know that he is already checked the intro screen activity
                  //i'm going to use shared preferences to that process

@@ -36,5 +36,7 @@ dependencies {
     implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v7:0.6.0'
     implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-places-v7:0.8.0'
     implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.google.android.gms:play-services-auth:16.0.1'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
 }
