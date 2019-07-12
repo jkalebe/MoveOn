@@ -1,8 +1,5 @@
 package com.example.moveon;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -13,20 +10,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerlayout;
     private ActionBarDrawerToggle toggle;
     public static final String GOOGLE_ACCOUNT = "google_account";
     private TextView profileName, profileEmail;
-    private ImageView profileImage;
+    private CircleImageView profileImage;
     public GoogleSignInAccount googleSignInAccount;
 
     @Override
