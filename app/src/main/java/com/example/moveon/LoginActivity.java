@@ -2,6 +2,7 @@ package com.example.moveon;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,12 +15,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "AndroidClarified";
-    private GoogleSignInClient googleSignInClient;
+    static private GoogleSignInClient googleSignInClient;
     private SignInButton googleSignInButton;
 
     @Override
@@ -83,4 +86,14 @@ public class LoginActivity extends AppCompatActivity {
             Log.d(TAG, "Erro Longin");
         }
     }
+
+    static public void signOut() {
+        googleSignInClient.signOut().addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+    }
+
 }

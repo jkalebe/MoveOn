@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#005166</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#FAF6F6</color>
+    <color name="colorAccent">#fff000</color>
 
     //cores para botões
     <color name="gradient_star_color">#4c04ff</color>
@@ -17,5 +17,6 @@
     <color name="white">#ffffff</color>
     <color name="colorAccent01">#FF4081</color>
     <color name="darkGray">#6c6c6c</color>
+    <color name="preto">#000000</color>
 
 </resources>

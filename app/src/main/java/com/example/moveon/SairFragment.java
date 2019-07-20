@@ -40,6 +40,8 @@ private GoogleSignInClient googleSignInClient;
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Toast.makeText(getContext(), "Clicou em sim", Toast.LENGTH_SHORT).show();
+                new LoginActivity().signOut();
+                getActivity().finish();
 
 
             }
@@ -49,6 +51,7 @@ private GoogleSignInClient googleSignInClient;
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Toast.makeText(getContext(), "Clicou em não", Toast.LENGTH_SHORT).show();
+
             }
         });
         sairDialog.show();
