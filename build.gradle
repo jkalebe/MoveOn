@@ -6,6 +6,8 @@ buildscript {
         jcenter()
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+        maven { url "https://jitpack.io"}
+        maven { url "https://dl.bintray.com/drummer-aidan/maven/"}
 
 
     }

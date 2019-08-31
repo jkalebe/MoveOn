@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
             //Toast.makeText(this, "Already Logged In", Toast.LENGTH_SHORT).show();
             onLoggedIn(alreadyloggedAccount);
         } else {
-            Log.d(TAG, "Erro Longin");
+            Log.d(TAG, "Erro Login");
         }
     }
 

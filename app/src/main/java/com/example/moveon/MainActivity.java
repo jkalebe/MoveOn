@@ -8,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -26,10 +27,12 @@ public class MainActivity extends AppCompatActivity {
     private TextView profileName, profileEmail;
     private CircleImageView profileImage;
     public GoogleSignInAccount googleSignInAccount;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("cicloMain", "onStart() criado");
 
         googleSignInAccount = getIntent().getParcelableExtra(GOOGLE_ACCOUNT);
 
@@ -42,11 +45,17 @@ public class MainActivity extends AppCompatActivity {
         profileEmail = headerView.findViewById(R.id.profileemail);
         profileImage = headerView.findViewById(R.id.profileimage);
         setDataOnView();
-
+        bundle = new Bundle();
+        bundle.putString("IDT", googleSignInAccount.getId());
 
         if(savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction().replace(R.id.flcontent,
-                    new MapasFragment()).commit();
+
+            MapasFragment mapasFragment = new MapasFragment();
+            mapasFragment.setArguments(bundle);
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.flcontent,
+                            mapasFragment).commit();
         }
 
         mDrawerlayout = findViewById(R.id.drawer);
@@ -59,15 +68,16 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setupDrawerContent(nvDrawer);
 
-        }
+    }
 
-   @Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item){
         if (toggle.onOptionsItemSelected(item)){
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
     public void selectIterDrawer(MenuItem menuItem){
         Fragment myFragment = null;
         Class fragmentClass = null;
@@ -89,16 +99,14 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.logout:
-               fragmentClass = SairFragment.class;
-                break;
-            default:
-                fragmentClass = MapasFragment.class;
+                fragmentClass = SairFragment.class;
                 break;
 
         }
 
         try{
             myFragment = (Fragment) fragmentClass.newInstance();
+            myFragment.setArguments(bundle);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -119,16 +127,53 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
     }
 
     private void setDataOnView() {
 
-            Picasso.get().load(googleSignInAccount.getPhotoUrl()).centerInside().fit().into(profileImage);
-            profileName.setText(googleSignInAccount.getDisplayName());
-            profileEmail.setText(googleSignInAccount.getEmail());
+        Picasso.get().load(googleSignInAccount.getPhotoUrl()).centerInside().fit().into(profileImage);
+        profileName.setText(googleSignInAccount.getDisplayName());
+        profileEmail.setText(googleSignInAccount.getEmail());
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("cicloMain", "onResume() criado");
+    }
 
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("cicloMain", "onPause() criado");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("cicloMain", "onRestart() criado");
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("cicloMain", "onStart() criado");
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("cicloMain", "onStop() criado");
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("cicloMain", "onDestroy() criado");
+    }
 }
