@@ -17,6 +17,7 @@ import android.os.Handler;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.UiThread;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,8 +40,6 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 
 import com.mapbox.mapboxsdk.maps.Style;
-import com.mapbox.mapboxsdk.maps.Style.OnStyleLoaded;
-import com.mapbox.mapboxsdk.plugins.annotation.OnSymbolClickListener;
 import com.mapbox.mapboxsdk.plugins.annotation.Symbol;
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager;
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions;
@@ -70,7 +69,6 @@ public class MapasFragment extends Fragment implements RetroClient {
     private static final int REQUEST_CODE_AUTOCOMPLETE = 1;
     private static final String ICON_ACESS = "id-icon";
     private String geojsonSourceLayerId = "geojsonSourceLayerId";
-    private List<MoveOn> listMoveon = new ArrayList<>();
     Intent intentPutExtra;
     private Retrofit retrofit;
     private float sizeIcon = 1.0f;
@@ -114,8 +112,7 @@ public class MapasFragment extends Fragment implements RetroClient {
                 symbolManager = new SymbolManager(mapView, mapboxMap, style);
                 symbolManager.setIconAllowOverlap(true);
                 symbolManager.setTextAllowOverlap(true);
-
-                //symbolManager.addClickListener(MapasFragment.this::clickViewDados);
+                symbolManager.addClickListener(MapasFragment.this::clickViewDados);
 
             });
 
@@ -147,8 +144,7 @@ public class MapasFragment extends Fragment implements RetroClient {
         super.onResume();
         Log.d("ciclo", "Fragment: onResume() criado");
         mapView.onResume();
-
-
+        List<SymbolOptions> symbolOptions = new ArrayList<>();
         final List<MoveOn>[] moveOns = new List[]{new ArrayList<>()};
 
         DadosService service = retrofit.create(DadosService.class);
@@ -160,9 +156,27 @@ public class MapasFragment extends Fragment implements RetroClient {
 
                 for (int i = 0; i < moveOns[0].size(); i++) {
                     MoveOn moveOn = moveOns[0].get(i);
-                    MyClass myClass = new MyClass(moveOn);
-                    new Thread(myClass).start();
+
+                    symbolOptions.add(new SymbolOptions()
+                            .withLatLng(new LatLng(moveOn.getLatitude(), moveOn.getLongitude()))
+                            .withTextAnchor("Ponto")
+                            .withIconImage(ICON_ACESS)
+                            .withIconSize(sizeIcon)
+                            .withDraggable(false));
                 }
+//                if(symbolManager != null){
+//                    symbolManager.create(symbolOptions);
+//                }
+//                MyClass myClass = new MyClass(symbolOptions);
+//                new Thread(myClass).start();
+
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        symbolManager.create(symbolOptions);
+                    }
+                }, 1000);
+
             }
 
             @Override
@@ -170,9 +184,6 @@ public class MapasFragment extends Fragment implements RetroClient {
 
             }
         });
-
-        symbolManager.addClickListener(MapasFragment.this::clickViewDados);
-
 
     }
 
@@ -189,7 +200,6 @@ public class MapasFragment extends Fragment implements RetroClient {
         Log.d("ciclo", "Fragment: onStop() criado");
         super.onStop();
         mapView.onStop();
-        symbolManager.removeClickListener(this::clickViewDados);
     }
 
     @Override
@@ -334,36 +344,29 @@ public class MapasFragment extends Fragment implements RetroClient {
     @Override
     public void onRetrofit() {
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.219.7.135:3333")
+                .baseUrl("http://192.168.0.7:3333")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
 
-    class MyClass implements Runnable {
-
-        private MoveOn moveOn;
-
-        public MyClass(MoveOn moveOn) {
-            this.moveOn = moveOn;
-        }
-
-        @Override
-        public void run() {
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-
-                    symbolManager.create(new SymbolOptions()
-                            .withLatLng(new LatLng(moveOn.getLatitude(), moveOn.getLongitude()))
-                            .withTextAnchor("Ponto")
-                            .withIconImage(ICON_ACESS)
-                            .withIconSize(sizeIcon)
-                            .withDraggable(false)
-                    );
-
-                }
-            });
-        }
-    }
+//    class MyClass implements Runnable{
+//
+//        private List<SymbolOptions> optionsList;
+//        public MyClass(List<SymbolOptions> optionsList) {
+//            this.optionsList = optionsList;
+//        }
+//
+//        @Override
+//        public void run() {
+//            try {
+//                Thread.sleep(3000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            if(symbolManager != null)
+//                symbolManager.create(optionsList);
+//
+//        }
+//    }
 
 }
