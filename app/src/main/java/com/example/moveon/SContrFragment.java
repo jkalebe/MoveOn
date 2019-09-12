@@ -85,7 +85,7 @@ public class SContrFragment extends Fragment implements RetroClient {
     @Override
     public void onRetrofit() {
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.7:3333")
+                .baseUrl("http://10.219.7.135:3333")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }

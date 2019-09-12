@@ -39,6 +39,7 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 
 import com.mapbox.mapboxsdk.maps.Style;
+import com.mapbox.mapboxsdk.maps.Style.OnStyleLoaded;
 import com.mapbox.mapboxsdk.plugins.annotation.OnSymbolClickListener;
 import com.mapbox.mapboxsdk.plugins.annotation.Symbol;
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager;
@@ -56,9 +57,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-
-import static com.mapbox.mapboxsdk.Mapbox.getApplicationContext;
 
 
 /**
@@ -117,8 +115,7 @@ public class MapasFragment extends Fragment implements RetroClient {
                 symbolManager.setIconAllowOverlap(true);
                 symbolManager.setTextAllowOverlap(true);
 
-
-                symbolManager.addClickListener(MapasFragment.this::clickViewDados);
+                //symbolManager.addClickListener(MapasFragment.this::clickViewDados);
 
             });
 
@@ -135,17 +132,7 @@ public class MapasFragment extends Fragment implements RetroClient {
 
     }
 
-    /*
-        symbolManager.addClickListener(new OnSymbolClickListener() {
-            @Override
-            public void onAnnotationClick(Symbol symbol) {
 
-
-                Toast.makeText(getApplicationContext(), symbol.getTextAnchor()+symbol.getId(), Toast.LENGTH_LONG).show();
-                clickViewDados(symbol.getLatLng());
-            }
-        });
-    */
     @Override
     public void onStart() {
         super.onStart();
@@ -160,6 +147,7 @@ public class MapasFragment extends Fragment implements RetroClient {
         super.onResume();
         Log.d("ciclo", "Fragment: onResume() criado");
         mapView.onResume();
+
 
         final List<MoveOn>[] moveOns = new List[]{new ArrayList<>()};
 
@@ -183,6 +171,9 @@ public class MapasFragment extends Fragment implements RetroClient {
             }
         });
 
+        symbolManager.addClickListener(MapasFragment.this::clickViewDados);
+
+
     }
 
 
@@ -198,6 +189,7 @@ public class MapasFragment extends Fragment implements RetroClient {
         Log.d("ciclo", "Fragment: onStop() criado");
         super.onStop();
         mapView.onStop();
+        symbolManager.removeClickListener(this::clickViewDados);
     }
 
     @Override
@@ -342,7 +334,7 @@ public class MapasFragment extends Fragment implements RetroClient {
     @Override
     public void onRetrofit() {
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.7:3333")
+                .baseUrl("http://10.219.7.135:3333")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
@@ -369,20 +361,6 @@ public class MapasFragment extends Fragment implements RetroClient {
                             .withDraggable(false)
                     );
 
-                }
-            });
-        }
-    }
-
-    class MySymbolClass implements Runnable {
-
-        @Override
-        public void run() {
-
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    symbolManager.addClickListener(MapasFragment.this::clickViewDados);
                 }
             });
         }
