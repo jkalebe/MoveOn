@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#005166</color>
+    <color name="colorPrimary">#18a3fe</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#fff000</color>
+
+    <color name="colorBackground">#f5f5f5</color>
 
     //cores para botões
     <color name="gradient_star_color">#4c04ff</color>

@@ -10,6 +10,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -38,5 +39,8 @@ public interface DadosService {
 
     @GET("/posts/usr/{idgoogle}")
     Call<List<MoveOn>> recuperarDadosUsr(@Path("idgoogle") String idgoogle);
+
+    @DELETE("/posts/usr/{idgoogle}/{id}")
+    Call<Void> apagarDados(@Path("idgoogle") String idgoogle, @Path("id") String id);
 
 }

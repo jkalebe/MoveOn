@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
@@ -60,6 +61,7 @@ public class DadosMapa extends AppCompatActivity implements RetroClient {
     private CheckBox checkBoxEstacionamento;
     private RatingBar ratingBar;
     private Button buttonOk;
+    private ImageView imageSelected;
 
 
     private String checkString;
@@ -83,9 +85,11 @@ public class DadosMapa extends AppCompatActivity implements RetroClient {
         checkBoxRampa = findViewById(R.id.checkBoxRampa);
         ratingBar = findViewById(R.id.classificStar);
         buttonOk = findViewById(R.id.clickOk);
+        imageSelected = findViewById(R.id.photo_selected);
 
         buttonOk.setEnabled(false);
 
+        imageSelected.setVisibility(View.GONE);
         onRetrofit();
 
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -134,6 +138,9 @@ public class DadosMapa extends AppCompatActivity implements RetroClient {
             Uri selectImageUri = data.getData();
             selectImagePath = getRealPathFromURI(selectImageUri);
             buttonOk.setEnabled(true);
+            imageButton.setVisibility(View.GONE);
+            imageSelected.setVisibility(View.VISIBLE);
+            imageSelected.setImageURI(selectImageUri);
             //decodeImage(selectImagePath);
         }
     }
@@ -154,11 +161,11 @@ public class DadosMapa extends AppCompatActivity implements RetroClient {
     }
 
     private void openImage() {
-        Intent intent = new Intent(Intent.ACTION_PICK,
+        Intent intent = new Intent(Intent.ACTION_VIEW,
                 android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         //intent.setType("image/*");
         //intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE);
+        startActivityForResult(Intent.createChooser(intent, "Selecione uma imagem"), PICK_IMAGE);
     }
 
     private String getRealPathFromURI(Uri selectImageUri) {

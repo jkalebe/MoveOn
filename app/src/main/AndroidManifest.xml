@@ -9,20 +9,26 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon_novo2"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppCustomizado">
-        <activity android:name=".LoginActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".ViewDados"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".DadosMapa"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".AjudaActivity"
+        <activity android:name=".EditarDados"></activity>
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ViewDados"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DadosMapa"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AjudaActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

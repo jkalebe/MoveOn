@@ -1,8 +1,5 @@
 package com.example.moveon.model;
 
-import android.graphics.Bitmap;
-import android.media.Image;
-import android.net.Uri;
 
 public class MoveOn {
     private String titulo;
@@ -11,7 +8,7 @@ public class MoveOn {
     private String classific;
     private double latitude;
     private double longitude;
-    private String id;
+    private String _id;
     private String image;
     private String updatedAt;
 
@@ -97,10 +94,10 @@ public class MoveOn {
     }
 
     public String getId() {
-        return id;
+        return _id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this._id = id;
     }
 }

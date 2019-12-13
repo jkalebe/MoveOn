@@ -175,7 +175,7 @@ public class MapasFragment extends Fragment implements RetroClient {
                     public void run() {
                         symbolManager.create(symbolOptions);
                     }
-                }, 1000);
+                }, 1500);
 
             }
 
@@ -344,7 +344,7 @@ public class MapasFragment extends Fragment implements RetroClient {
     @Override
     public void onRetrofit() {
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.7:3333")
+                .baseUrl("http://200.239.66.34:443")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }

@@ -75,6 +75,7 @@ public class ViewDados extends AppCompatActivity implements RetroClient {
                 Log.d("body", moveOn.getTitulo() + "\n" + moveOn.getComentario() + "\n" + moveOn.getTipoacess() + "\n" + moveOn.getClassific());
 
                 titulo.setText(moveOn.getTitulo());
+                //getActionBar().setTitle(moveOn.getTitulo());
                 comentario.setText(moveOn.getComentario());
                 tipoAcess.setText(moveOn.getTipoacess());
                 ratingBar.setRating(Float.parseFloat(moveOn.getClassific()));

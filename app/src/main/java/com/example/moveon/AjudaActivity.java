@@ -13,10 +13,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-
-import java.security.Permission;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,7 +65,7 @@ public class AjudaActivity extends AppCompatActivity {
 
         mList.add(new ScreenItem("", "O seu papel aqui é ser tanto o Sherlock quanto o Watson, mas da acessibilidade! Aqui você vai agir " +
                 "“investigando” se existe acessibilidade para cadeirantes em espaços públicos e privados da sua cidade, em seguida documentando as " +
-                "informações recolhidas.", R.drawable.imagetela2));
+                "informações recolhidas.", R.drawable.ic_search_blue_24dp));
 
         mList.add(new ScreenItem("", "Ao registrar um local você vai seguir alguns passos:\n" +
                 "Abra o mapa.\n", R.drawable.ic_map_black_24dp));
@@ -80,7 +76,7 @@ public class AjudaActivity extends AppCompatActivity {
         mList.add(new ScreenItem("", "Avalie o local! Quando mais cadeirinhas selecionar mais acessível o local é.", R.drawable.ic_star_black_24dp));
 
         mList.add(new ScreenItem("","Quer deixar o papel de Sherlock e Watson de lado por um momento para ir relaxar em algum lugar da cidade, mas gostaria de saber antes se tem acessibilidade lá? Elementar, meu caro amigo (a).  É só ir no campo de busca e pesquisar o nome do local para saber tudinho sobre ele.\n" +
-                "Muita gente vê, mas não observa. Seja diferente. Bem vindo!", R.drawable.logomoveon21));
+                "Muita gente vê, mas não observa. Seja diferente. Bem vindo!", R.drawable.icon_novo2));
 
 
         screenPager = findViewById(R.id.screen_viewpager);

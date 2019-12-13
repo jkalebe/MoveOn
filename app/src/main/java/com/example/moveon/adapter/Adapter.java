@@ -26,11 +26,15 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
     private List<MoveOn> list;
     private MoveOn moveOn;
+    private AdapterClick click;
+    private AdapterClickLongo clickLongo;
 
 
-    public Adapter(List<MoveOn> listMoveon) {
+    public Adapter(List<MoveOn> listMoveon, AdapterClick adapterClick, AdapterClickLongo adapterClickLongo) {
         this.list = new ArrayList<>();
         this.list.addAll(listMoveon);
+        click = adapterClick;
+        clickLongo = adapterClickLongo;
         //MoveOn move = list.get(0);
         //Log.d("Logmove", move.getTitulo());
 
@@ -61,6 +65,23 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         myViewHolder.ratingBar.setRating(Float.parseFloat(moveOn.getClassific()));
         Picasso.get().load(RetroClient.URL + "/files/" + moveOn.getImage()).into(myViewHolder.imageView);
 
+
+        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                click.onClickAdapter(list.get(i));
+            }
+        });
+
+        myViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                clickLongo.onClickLongAdapter(list.get(i));
+                return myViewHolder.itemView.isLongClickable();
+            }
+        });
+
+
     }
 
     @Override
@@ -83,6 +104,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             textData = itemView.findViewById(R.id.textListdata);
             imageView = itemView.findViewById(R.id.imageListView);
             ratingBar = itemView.findViewById(R.id.ratingBarList);
+
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    click.onClickAdapter(list.get(itemView.getVerticalScrollbarPosition()));
+//
+//                }
+//            });
 
 
         }

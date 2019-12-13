@@ -1,7 +1,10 @@
 package com.example.moveon;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -16,8 +19,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.moveon.adapter.Adapter;
+import com.example.moveon.adapter.AdapterClick;
+import com.example.moveon.adapter.AdapterClickLongo;
 import com.example.moveon.api.DadosService;
 import com.example.moveon.api.RetroClient;
 import com.example.moveon.model.MoveOn;
@@ -35,7 +41,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SContrFragment extends Fragment implements RetroClient {
+public class SContrFragment extends Fragment implements RetroClient, AdapterClick, AdapterClickLongo {
 
     private RecyclerView recyclerView;
     private Retrofit retrofit;
@@ -43,6 +49,7 @@ public class SContrFragment extends Fragment implements RetroClient {
     private List<MoveOn> listaMove;
     private Adapter adapter;
     private Handler handler = new Handler();
+    private String idgoogle;
 
 
     @Override
@@ -66,6 +73,7 @@ public class SContrFragment extends Fragment implements RetroClient {
         Log.d("Adapterciclo", "onCreateView");
 
         recyclerView = layoutView.findViewById(R.id.recyclerView);
+        idgoogle = getArguments().getString("IDT");
 
         gerarList();
         //configurar adapter
@@ -85,7 +93,7 @@ public class SContrFragment extends Fragment implements RetroClient {
     @Override
     public void onRetrofit() {
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.7:3333")
+                .baseUrl("http://200.239.66.34:443")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
@@ -104,12 +112,63 @@ public class SContrFragment extends Fragment implements RetroClient {
 
     }
 
+    public void excluirDadosDialog(MoveOn moveOn) {
+        //String idgoogle = getArguments().getString("IDT");
+        AlertDialog.Builder sairDialog = new AlertDialog.Builder(getContext());
+        sairDialog.setTitle("Dados");
+        sairDialog.setMessage("O que deseja?");
+        sairDialog.setPositiveButton("Excluir", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(getContext(), "excluir", Toast.LENGTH_SHORT).show();
+                DadosService service = retrofit.create(DadosService.class);
+                String id = moveOn.getId();
+                Call<Void> call = service.apagarDados(idgoogle, id);
+
+                call.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if (response.isSuccessful()) {
+                            Toast.makeText(getActivity(), "Dados apagados com sucesso", Toast.LENGTH_SHORT).show();
+                            handler.post(new Runnable() {
+                                             @Override
+                                             public void run() {
+                                                 adapter.notifyDataSetChanged();
+                                             }
+                                         }
+                            );
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+
+                    }
+                });
+
+            }
+        });
+
+        sairDialog.setNegativeButton("Editar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+//                Toast.makeText(getContext(), "Editar dados", Toast.LENGTH_SHORT).show();
+                Intent editIt = new Intent(getActivity(), EditarDados.class);
+                editIt.putExtra("latitude", String.valueOf(moveOn.getLatitude()));
+                startActivity(editIt);
+
+            }
+        });
+        sairDialog.show();
+    }
+
 
     @Override
     public void onResume() {
 
 
-        String idgoogle = getArguments().getString("IDT");
+        //String idgoogle = getArguments().getString("IDT");
         DadosService service = retrofit.create(DadosService.class);
         Call<List<MoveOn>> call = service.recuperarDadosUsr(idgoogle);
 
@@ -125,6 +184,8 @@ public class SContrFragment extends Fragment implements RetroClient {
                 for (int i = 0; i < lista.size(); i++) {
                     MoveOn moveOn = lista.get(i);
                     Log.d("movelist", moveOn.getTitulo());
+                    Log.d("movelist", moveOn.getId());
+
                 }
             }
 
@@ -162,6 +223,21 @@ public class SContrFragment extends Fragment implements RetroClient {
         Log.d("Adapterciclo", "onDestroyView'''''");
     }
 
+    @Override
+    public void onClickAdapter(MoveOn moveOn) {
+        //Toast.makeText(getContext(), "click in "+moveOn.getTitulo(), Toast.LENGTH_SHORT).show();
+
+        Intent at = new Intent(getActivity(), ViewDados.class);
+        at.putExtra("latitude", String.valueOf(moveOn.getLatitude()));
+        startActivity(at);
+    }
+
+    @Override
+    public void onClickLongAdapter(MoveOn moveOn) {
+        Toast.makeText(getContext(), "click longo ", Toast.LENGTH_SHORT).show();
+        excluirDadosDialog(moveOn);
+    }
+
 
     class MyRunnable implements Runnable {
 
@@ -178,7 +254,7 @@ public class SContrFragment extends Fragment implements RetroClient {
                 @Override
                 public void run() {
                     //adapter.notifyDataSetChanged();
-                    adapter = new Adapter(list);
+                    adapter = new Adapter(list, SContrFragment.this::onClickAdapter, SContrFragment.this::onClickLongAdapter);
                     recyclerView.setAdapter(adapter);
                 }
             });
