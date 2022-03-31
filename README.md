@@ -1,7 +1,7 @@
 # MoveOn
 <p>
 MoveOn é um aplicativo que mapeia pontos de acessibilidade na cidade de Tucuruí-PA
-<img src="https://github.com/jkalebe/jkalebe.github.io/blob/master/src/assets/MoveOn.gif?raw=true" align="right" width="25%"/>
+<img src="https://res.cloudinary.com/nenhum/image/upload/v1648474613/moveOn_stuwxw.gif" align="right" width="25%"/>
 </p>
 
 ## Tech stack & Open-source libraries
